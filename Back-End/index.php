@@ -18,7 +18,7 @@ $size = filesize($file_name);
 if($size>0){
 $data = fread($fp, $size);
 fclose($fp);
-return json_decode($data);
+return json_decode($data, true);
 }
 else{
 echo '{"error":true,"msg":"Cannot read file"}';
