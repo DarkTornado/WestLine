@@ -1,5 +1,6 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *'); //일단 임시로 허용
 
 $h = (int)date('H'); 
 $m = (int)date('i');
