@@ -4,15 +4,59 @@ header('Content-Type: application/json; charset=utf-8');
 $h = (int)date('H'); 
 $m = (int)date('i');
 $s = (int)date('s');
+$now = time_to_sec($h, $m, $s);
 
 $data = read_time_table();
 $result = array();
+$stas = array('소사', '소새울', '시흥대야', '신천', '신현', '시흥시청', '시흥능곡', '달미', '선부', '초지', '시우', '원시');
+for ($n = 0;$n < count($stas); $n++) {
+$result[$n] = array();
+$result[$n]['sta'] = $stas[$n];
+$result[$n]['up'] = 0;
+$result[$n]['down'] = 0;
+}
+
+
 foreach ($data as $train => $time) {
 if(skip_check($train, $time)) continue;
-$result[$train] = $time;
+$num = str_split($train, 1);
+$ud = 'up';
+$index = get_train_location($time);
+if($num[4]%2==0) {
+$ud = 'down';
+$index = count($stas) - $index - 1;
+}
+
+$result[$index][$ud] = 1;
+$result[$index][$ud.'_train'] = $train;
 }
 echo json_encode($result);
 
+
+function get_train_location($time) {
+global $now;
+for ($n = count($time) - 1; $n >= 0; $n--) {
+$tym = time_to_sec($time[$n]['time']);
+if($now==$tym) return $n;
+if($now > $tym) return $n + 1;
+}
+return 0;
+}
+
+function time_to_sec() {
+$count = func_num_args();
+$params = func_get_args();
+if($count==1){
+$t = explode(':', $params[0]);
+$t[0] = (int)$t[0];
+$t[1] = (int)$t[1];
+$t[2] = (int)$t[2];
+return $t[0]*60*60 + $t[1] * 60 + $t[2];
+}
+else{
+return $params[0]*60*60 + $params[1] * 60 + $params[2];
+}
+}
 
 function skip_check($train, $time) {
 global $h, $m, $s;
