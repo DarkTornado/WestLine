@@ -11,7 +11,7 @@ $result = array();
 $stas = array('소사', '소새울', '시흥대야', '신천', '신현', '시흥시청', '시흥능곡', '달미', '선부', '초지', '시우', '원시');
 for ($n = 0;$n < count($stas); $n++) {
 $result[$n] = array();
-$result[$n]['sta'] = $stas[$n];
+$result[$n]['sta'] = urlencode($stas[$n]);
 $result[$n]['up'] = 0;
 $result[$n]['down'] = 0;
 }
@@ -30,7 +30,7 @@ $index = count($stas) - $index - 1;
 $result[$index][$ud] = 1;
 $result[$index][$ud.'_train'] = $train;
 }
-echo json_encode($result);
+echo urldecode(json_encode($result));
 
 
 function get_train_location($time) {
