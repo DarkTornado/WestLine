@@ -1,10 +1,40 @@
 <?php
-header('Content-Type: text/html; charset=utf-8');
+header('Content-Type: application/json; charset=utf-8');
 
-$h = date('H'); 
-$min = date('i');
+$h = (int)date('H'); 
+$m = (int)date('i');
+$s = (int)date('s');
+
 $data = read_time_table();
-var_dump($data);
+$result = array();
+foreach ($data as $train => $time) {
+if(skip_check($train, $time)) continue;
+$result[$train] = $time;
+}
+echo json_encode($result);
+
+
+function skip_check($train, $time) {
+global $h, $m, $s;
+
+//아직 출발하지 않은 열차 필터링
+$t = explode(':', $time[0]['time']);
+$t[0] = (int)$t[0];
+$t[1] = (int)$t[1];
+$t[2] = (int)$t[2];
+if($h < $t[0]) return true;
+if($h == $t[0] && $m < $t[1]) return true;
+
+//이미 운행이 종료된 열차 필터링
+$t = explode(':', $time[count($time)-1]['time']);
+$t[0] = (int)$t[0];
+$t[1] = (int)$t[1];
+$t[2] = (int)$t[2];
+if($t[0] < $h) return true;
+if($t[0] == $h && $t[1] < $m) return true;
+
+return false;
+}
 
 function read_time_table() {
 $day = date('w');
