@@ -1,7 +1,7 @@
 <html>
 <header>
-    <meta charset="utf-8">
-    <meta name="viewport" content="user-scalable=no width=device-width" />
+    <meta charset='utf-8'>
+    <meta name='viewport' content='user-scalable=no width=device-width' />
     <title>서해선 열차 운행 정보</title>
 </header>
 <style>
@@ -18,12 +18,69 @@
         color: #FFFFFF;
         font-size: 23px;
     }
+
+    div.body {
+        padding: 70px 20px 20px 20px;
+    }
+
+    table {
+        width: 100%;
+        color: #000000;
+        border-collapse: collapse;
+        font-size: 15px;
+        border: 1px solid #000000;
+    }
+
+    td {
+        border-collapse: collapse;
+        border: 1px solid #000000;
+    }
 </style>
 
 <body>
     <div class=header>
         서해선 열차 운행 정보
     </div>
+    <div class=body>
+        <table id='data'>
+            <tr>
+                <td>
+                    정보 불러오는 중...
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        var req = new XMLHttpRequest();
+        req.open('GET', 'Front-End URL');
+        req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        //req.setRequestHeader('Cache-Control', 'no-cache');
+        req.send();
+        req.onreadystatechange = function(e) {
+            if (this.readyState == 4 && req.status === 200) {
+                data = (req.responseText + '').trim();
+                alert(data);
+                if (data != '') {
+                    applyData(data);
+                }
+            } else {
+                //alert(e);
+            }
+        };
+
+        function applyData(data) {
+            var src = '';
+            data = JSON.parse(data);
+            data.forEach((e) => {
+                src += '<tr>';
+                src += '<td>' + e.up + '</td>';
+                src += '<td>' + e.down + '</td>';
+                src += '<td>' + e.sta + '</td>';
+                src += '</tr>';
+            });
+            document.getElementById('data').innerHTML = src;
+        }
+    </script>
 </body>
 
 </html>
