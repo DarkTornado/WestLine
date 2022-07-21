@@ -13,8 +13,8 @@ $stas = array('소사', '소새울', '시흥대야', '신천', '신현', '시흥
 for ($n = 0;$n < count($stas); $n++) {
 $result[$n] = array();
 $result[$n]['sta'] = urlencode($stas[$n]);
-$result[$n]['up'] = 0;
-$result[$n]['down'] = 0;
+$result[$n]['up'] = '';
+$result[$n]['down'] = '';
 }
 
 
@@ -28,8 +28,7 @@ $ud = 'down';
 $index = count($stas) - $index - 1;
 }
 
-$result[$index][$ud] = 1;
-$result[$index][$ud.'_train'] = $train;
+$result[$index][$ud] = $train;
 }
 echo urldecode(json_encode($result));
 
