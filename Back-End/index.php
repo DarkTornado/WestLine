@@ -21,10 +21,10 @@ $result[$n]['down'] = '';
 foreach ($data as $train => $time) {
 if(skip_check($train, $time)) continue;
 $num = str_split($train, 1);
-$ud = 'up';
+$ud = 'down';
 $index = get_train_location($time);
 if($num[4]%2==0) {
-$ud = 'down';
+$ud = 'up';
 $index = count($stas) - $index - 1;
 }
 
