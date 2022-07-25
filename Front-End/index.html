@@ -27,19 +27,35 @@
         width: 100%;
         color: #000000;
         border-collapse: collapse;
-        font-size: 15px;
-        border: 1px solid #000000;
+        font-size: 16px;
+        border-top: 1px solid #BDBDBD;
+        border-bottom: 1px solid #BDBDBD;
     }
 
     td {
-        padding: 5px;
+        padding: 8px;
         border-collapse: collapse;
-        border: 1px solid #000000;
+        border: 0px solid #000000;
     }
 
     td.train {
-        width: 30px;
+        width: 20px;
         text-align: center;
+        color: #E0E0E0;
+    }
+
+    td.line {
+        padding: 0px;
+        width: 3px;
+        background-color: #8FC31F;
+    }
+
+    td.station {
+        border-left: 1px solid #BDBDBD;
+    }
+
+    img {
+        width: 10px;
     }
 </style>
 
@@ -58,14 +74,13 @@
     </div>
     <script>
         var req = new XMLHttpRequest();
-        req.open('GET', 'Front-End URL');
+        req.open('GET', 'http://darktornado.dothome.co.kr/west/'); //Front-End URL
         req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         //req.setRequestHeader('Cache-Control', 'no-cache');
         req.send();
         req.onreadystatechange = function(e) {
             if (this.readyState == 4 && req.status === 200) {
                 data = (req.responseText + '').trim();
-                alert(data);
                 if (data != '') {
                     applyData(data);
                 }
@@ -79,9 +94,10 @@
             data = JSON.parse(data);
             data.forEach((e) => {
                 src += '<tr>';
-                src += '<td class=train>' + e.up + '</td>';
-                src += '<td class=train>' + e.down + '</td>';
-                src += '<td>' + e.sta + '</td>';
+                src += '<td class=train>' + (e.up ? '<img src="./images/metro_up.png">' : '↑') + '</td>';
+                src += '<td class=line></td>';
+                src += '<td class=train>' + (e.down ? '<img src="./images/metro_down.png">' : '↓') + '</td>';
+                src += '<td class=station>' + e.sta + '</td>';
                 src += '</tr>';
             });
             document.getElementById('data').innerHTML = src;
