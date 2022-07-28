@@ -35,7 +35,7 @@ function get_train_location($time) {
     global $now;
     for ($n = count($time) - 1; $n >= 0; $n--) {
         $tym = time_to_sec($time[$n]['time']);
-        if ($now==$tym) return $n;
+        if ($now == $tym) return $n;
         if ($now > $tym) return $n + 1;
     }
     return 0;
@@ -56,23 +56,15 @@ function time_to_sec() {
 }
 
 function skip_check($train, $time) {
-    global $h, $m, $s;
+    global $now;
 
     /* 아직 출발하지 않은 열차 필터링 */
-    $t = explode(':', $time[0]['time']);
-    $t[0] = (int)$t[0];
-    $t[1] = (int)$t[1];
-    $t[2] = (int)$t[2];
-    if ($h < $t[0]) return true;
-    if ($h == $t[0] && $m < $t[1]) return true;
+    $tym = time_to_sec($time[0]['time']);
+    if ($now < $tym) return true;
 
     /* 이미 운행이 종료된 열차 필터링 */
-    $t = explode(':', $time[count($time) - 1]['time']);
-    $t[0] = (int)$t[0];
-    $t[1] = (int)$t[1];
-    $t[2] = (int)$t[2];
-    if ($t[0] < $h) return true;
-    if ($t[0] == $h && $t[1] < $m) return true;
+    $tym = time_to_sec($time[count($time) - 1]['time']);
+    if ($tym < $now) return true;
 
     return false;
 }
