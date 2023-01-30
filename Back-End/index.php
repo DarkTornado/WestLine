@@ -73,8 +73,8 @@ function read_time_table() {
     $day = date('w');
 
     /* 주말/평일 구분 */
-    if ($day == 0 || $day == 6) $file_name = 'time_table_20220401_1.json';
-    else $file_name = 'time_table_20220401_0.json';
+    if ($day == 0 || $day == 6) $file_name = 'time_table_20221228_1.json';
+    else $file_name = 'time_table_20221228_0.json';
 
     /* 시간표 파일 읽기 */
     $fp = fopen($file_name, 'r');
