@@ -9,7 +9,7 @@ $now = time_to_sec($h, $m, $s);
 
 $data = read_time_table();
 $result = array();
-$stas = array('소사', '소새울', '시흥대야', '신천', '신현', '시흥시청', '시흥능곡', '달미', '선부', '초지', '시우', '원시');
+$stas = array('대곡', '능곡', '김포공항', '원종', '부천종합운동장', '소사', '소새울', '시흥대야', '신천', '신현', '시흥시청', '시흥능곡', '달미', '선부', '초지', '시우', '원시');
 for ($n = 0;$n < count($stas); $n++) {
     $result[$n] = array();
     $result[$n]['sta'] = urlencode($stas[$n]);
