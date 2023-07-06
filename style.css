@@ -1,0 +1,61 @@
+body {
+    margin: 0px;
+}
+
+div.header {
+    background: #8FC31F;
+    padding: 13px;
+    box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    position: fixed;
+    color: #FFFFFF;
+    font-size: 23px;
+}
+
+div.body {
+    padding: 80px 20px 20px 20px;
+}
+
+div.footer {
+    padding: 5px;
+    font-size: 12px;
+}
+
+table {
+    width: 100%;
+    color: #000000;
+    border-collapse: collapse;
+    font-size: 16px;
+    border-top: 1px solid #BDBDBD;
+    border-bottom: 1px solid #BDBDBD;
+}
+
+td {
+    padding: 8px;
+    border-collapse: collapse;
+    border: 0px solid #000000;
+}
+
+td.train {
+    width: 20px;
+    text-align: center;
+    color: #E0E0E0;
+}
+
+td.line {
+    padding: 0px;
+    width: 3px;
+    background-color: #8FC31F;
+}
+
+td.station {
+    border-left: 1px solid #BDBDBD;
+}
+
+img {
+    width: 10px;
+}
+
+p {
+    margin: 0px;
+}

@@ -3,70 +3,8 @@
     <meta charset='utf-8'>
     <meta name='viewport' content='user-scalable=no width=device-width' />
     <title>서해선 열차 운행 정보</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </header>
-<style>
-    body {
-        margin: 0px;
-    }
-
-    div.header {
-        background: #8FC31F;
-        padding: 13px;
-        box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.3);
-        width: 100%;
-        position: fixed;
-        color: #FFFFFF;
-        font-size: 23px;
-    }
-
-    div.body {
-        padding: 80px 20px 20px 20px;
-    }
-
-    div.footer {
-        padding: 5px;
-        font-size: 12px;
-    }
-
-    table {
-        width: 100%;
-        color: #000000;
-        border-collapse: collapse;
-        font-size: 16px;
-        border-top: 1px solid #BDBDBD;
-        border-bottom: 1px solid #BDBDBD;
-    }
-
-    td {
-        padding: 8px;
-        border-collapse: collapse;
-        border: 0px solid #000000;
-    }
-
-    td.train {
-        width: 20px;
-        text-align: center;
-        color: #E0E0E0;
-    }
-
-    td.line {
-        padding: 0px;
-        width: 3px;
-        background-color: #8FC31F;
-    }
-
-    td.station {
-        border-left: 1px solid #BDBDBD;
-    }
-
-    img {
-        width: 10px;
-    }
-
-    p {
-        margin: 0px;
-    }
-</style>
 
 <body>
     <div class=header>
@@ -84,42 +22,7 @@
     <div class=footer>
         <p align=center>© 2022-2023 Dark Tornado, All rights reserved. | <a href="https://github.com/DarkTornado/WestLine">Github</a></p>
     </div>
-    <script>
-        setInterval(() => loadData(), 10000);
-        loadData();
-
-        function loadData() {
-            var req = new XMLHttpRequest();
-            req.open('GET', 'https://api.darktornado.net/subway/west');
-            req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            //req.setRequestHeader('Cache-Control', 'no-cache');
-            req.send();
-            req.onreadystatechange = function(e) {
-                if (this.readyState == 4 && req.status === 200) {
-                    data = (req.responseText + '').trim();
-                    if (data != '') {
-                        applyData(data);
-                    }
-                } else {
-                    //alert(e);
-                }
-            };
-        }
-
-        function applyData(data) {
-            var src = '';
-            data = JSON.parse(data);
-            data.forEach((e) => {
-                src += '<tr>';
-                src += '<td class=train>' + (e.up ? '<img src="./images/metro_up.png">' : '↑') + '</td>';
-                src += '<td class=line></td>';
-                src += '<td class=train>' + (e.down ? '<img src="./images/metro_down.png">' : '↓') + '</td>';
-                src += '<td class=station>' + e.sta + '</td>';
-                src += '</tr>';
-            });
-            document.getElementById('data').innerHTML = src;
-        }
-    </script>
+    <script src='./script.js'></script>
 </body>
 
 </html>
