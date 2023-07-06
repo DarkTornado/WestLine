@@ -5,7 +5,6 @@ function loadData() {
     var req = new XMLHttpRequest();
     req.open('GET', 'Back-End URL');
     req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    //req.setRequestHeader('Cache-Control', 'no-cache');
     req.send();
     req.onreadystatechange = function(e) {
         if (this.readyState == 4 && req.status === 200) {
@@ -13,8 +12,6 @@ function loadData() {
             if (data != '') {
                 applyData(data);
             }
-        } else {
-            //alert(e);
         }
     };
 }
